@@ -17,6 +17,7 @@ let node = path.basename(process.argv[0]);
 let file = path.basename(process.argv[1]);
 let cmd = process.argv[2];
 
+// if the command's index is anything greater than -1
 if (commands.indexOf(cmd) > -1) {
 
 } else {
@@ -25,6 +26,7 @@ if (commands.indexOf(cmd) > -1) {
 }
 
 if (cmd === 'read') {
+  // fs.readFile asynchronously reads the entire contents of a file.
   fs.readFile(petsPath, 'utf8', function(err, data) {
     if (err) {
       // stops execution of program
@@ -44,11 +46,16 @@ if (cmd === 'read') {
   });
 
 } else if (cmd === 'create') {
+  // fs.readFile asynchronously reads the entire contents of a file.
   fs.readFile(petsPath, 'utf8', function(readErr, data) {
     if (readErr) {
       throw readErr;
     }
+
+    // JSON.parse turns the JSON data into a javascript object
     let pets = JSON.parse(data);
+
+    // parseInt turns a string into an integer
     let age = parseInt(process.argv[3]);
     let kind = process.argv[4];
     let name = process.argv[5];
@@ -62,10 +69,13 @@ if (cmd === 'read') {
       console.error(`Usage: ${node} ${file} ${cmd} AGE KIND NAME`);
       process.exit(1);
     }
+    //adds to the array
     pets.push(pet);
 
+    // converts a Javascript value into a JSON string
     let petsJSON = JSON.stringify(pets);
 
+    // this asynchronously writes data to a file, replacing the file if it already exists
     fs.writeFile(petsPath, petsJSON, function(writeErr) {
       if (writeErr) {
         throw writeErr;
@@ -76,4 +86,18 @@ if (cmd === 'read') {
 } else {
   console.error(`Usage: ${node} ${file} [read | create]`);
   process.exit(1);
+
 }
+// if (cmd === 'update') {
+//   fs.readFile(petsPath, 'utf8', function(readErr, data) {
+//     if (readErr) {
+//       throw readErr;
+//     }
+//
+//     let index = process.argv[3];
+//     let age = parseInt(process.argv[4]);
+//     let kind = process.argv[5];
+//     let name = process.argv[6];
+//     let pet = pets[index]
+//   });
+// }
