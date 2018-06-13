@@ -8,7 +8,10 @@ let express = require('express'); //creates an express application
 let app = express(); //express function is a top-evel function exported by the expression module
 let port = process.env.PORT || 8000; // sets the environment variable to port which tells out server where to listen on
 
+let morgan = require('morgan');
+
 app.disable('x-powered-by');
+app.use(morgan('short'));
 
 app.get('/pets', function(req, res) {
   fs.readFile(petsPath, 'utf8', function(err, petsJSON) {
