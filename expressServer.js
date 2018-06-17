@@ -38,11 +38,11 @@ app.post('/pets', function(req, res) {
 
     let pets = JSON.parse(petsJSON);
     let pet = {};
-    pet.name = req.body.name;
-    pet.age = parseInt(req.body.age);
-    pet.kind = req.body.kind;
+    let name = req.body.name;
+    let age = parseInt(req.body.age);
+    let kind = req.body.kind;
 
-    if (!pet.name || !pet.age || !pet.kind) {
+    if (!name || !age || !kind) {
       return res.sendStatus(400);
     }
 
